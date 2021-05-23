@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Transcribe</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+      integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+      crossorigin="anonymous"
+    />
+    <link rel="icon" href="./images/transcribe.png" type="image/png" />
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+      }
+      body {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        background: #272822;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .container {
+        width: 400px;
+        height: 500px;
+        padding: 20px 15px;
+        border-radius: 10px;
+
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: start;
+
+        box-shadow: -6px -6px 6px 0 rgba(72, 72, 72, 0.45),
+          6px 6px 6px 0 rgba(0, 0, 0, 0.4);
+      }
+
+      .heading {
+        /* font-family: "Arial Rounded MT"; */
+        font-family: "Fira Code";
+        margin-bottom: 10px;
+        color: aliceblue;
+        font-size: 20px;
+      }
+
+      .heading .v i {
+        margin: 0px 15px;
+        color: #eb3b5a;
+        font-size: 28px;
+      }
+      .heading .t i {
+        color: teal;
+        font-size: 28px;
+        margin: 0px 15px;
+      }
+
+      textarea {
+        width: calc(90% - 2px);
+        height: 80%;
+        resize: none;
+        border: none;
+        outline: none;
+        background: #222222;
+
+        padding: 10px;
+        font-size: 17px;
+        color: aliceblue;
+        text-align: justify;
+        border-radius: 10px;
+        border: 0.5px solid rgb(150, 150, 150);
+      }
+
+      textarea::-webkit-scrollbar {
+        width: 10px;
+      }
+      textarea::-webkit-scrollbar-track {
+        border-radius: 5px;
+        background: #3d3d3d;
+      }
+      textarea::-webkit-scrollbar-thumb {
+        cursor: pointer;
+        border-radius: 5px;
+        background: #636e72;
+        /* background: #787878; */
+      }
+
+      textarea::selection {
+        color: black;
+        background: #028543;
+        transition: all 1s ease-out;
+      }
+
+      .buttons {
+        width: 95%;
+        display: flex;
+        margin-top: 10px;
+        justify-content: space-between;
+      }
+
+      button {
+        padding: 5px 5px;
+        cursor: pointer;
+        height: 35px;
+        width: 180px;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+
+        transition: all 0.2s ease-in-out;
+      }
+
+      button#reset {
+        background: #eb3b5a;
+      }
+      button#copy {
+        background: teal;
+      }
+
+      button i {
+        font-size: 25px;
+      }
+
+      button:hover {
+        filter: brightness(70%);
+      }
+
+      button:active {
+        transform: translate(0.2px, 0.5px);
+      }
+
+      textarea:focus {
+        /* color: aliceblue; */
+        box-shadow: 0px 0px 6px 0 rgba(72, 72, 72, 0.8);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="heading">
+        <span class="v"><i class="fas fa-microphone"></i></span>
+        <i class="fas fa-arrow-right"></i>
+        <span class="t"><i class="far fa-file-alt"></i></span>
+      </h2>
+      <textarea name="" id="text" rows="10"></textarea>
+      <div class="buttons">
+        <button id="reset"><i class="fas fa-eraser"></i></button
+        ><button id="copy"><i class="far fa-copy"></i></button>
+      </div>
+    </div>
+    <script>
+      let copyButton = document.querySelector("#copy");
+      let resetButton = document.querySelector("#reset");
+      let textarea = document.querySelector("#text");
+
+      resetButton.addEventListener("click", () => {
+        textarea.value = "";
+        textarea.focus();
+      });
+
+      copyButton.addEventListener("click", () => {
+        textarea.select();
+        document.execCommand("copy");
+        removeSelection();
+      });
+
+      let removeSelection = () => {
+        setTimeout(() => document.getSelection().removeAllRanges(), 1500);
+      };
+    </script>
+  </body>
+</html>
